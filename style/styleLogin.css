@@ -1,0 +1,108 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-image: url("https://i.pinimg.com/736x/30/a8/bd/30a8bdf7406249fb5e6c718b1c3da6a9.jpg");
+    background-size: cover;         /* gambar menyesuaikan layar */
+    background-repeat: no-repeat;   /* tidak diulang */
+    background-position: center;    /* posisi tengah */
+    min-height: 90vh;              /* minimal tinggi = tinggi layar */
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* hitam dengan opacity 40% */
+    z-index: -1;
+}
+
+.card{
+    margin:1px;
+    border:none;
+}
+
+.box {
+    width: 450px;
+    height: auto;
+    padding: 40px 60px;
+    margin: 70px auto 50px;
+    background: linear-gradient(145deg, #5f8b4c, #4d703d);
+    text-align: center;
+    transition: 0.25s;
+    border-radius: 40px;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.3),   /* shadow bawah */
+        0 0 10px rgba(0, 0, 0, 0.15),     /* shadow samping */
+        inset 0 1px 0 rgba(255, 255, 255, 0.1); /* sedikit glow dari dalam */
+}
+
+.box input[type="text"],
+.box input[type="password"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #DDEB9D;
+    padding: 10px 10px;
+    width: 250px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s
+}
+
+.box h1 {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.box p.text-muted{
+    color: #ffffff;
+}
+
+.box input[type="text"]:focus,
+.box input[type="password"]:focus {
+    width: 300px;
+    border-color: #A0C878;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: white;
+    font-style: italic;
+}
+
+.box input[type="submit"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #DDEB9D;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer
+}
+
+.box input[type="submit"]:hover {
+    background: #A0C878
+}
+
+.forgot {
+    text-decoration: underline;
+    color: #345725
+}
+
+a {
+    text-decoration: underline;
+    color: #345725
+}
