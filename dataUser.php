@@ -64,7 +64,7 @@ include 'config/controller.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>E-library Deseven</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
     body {
@@ -82,7 +82,7 @@ include 'config/controller.php';
     <div class ="container">
         <h1 class="text-center mt-5">DATA USER</h1>
         <br><br>
-        <a href="tambahuser.php" class="btn btn-success">Add User</a><br><br>
+        <a href="tambahuser.php" class="btn btn-success">+ Add User</a><br><br>
         <div class="form-group">
         <table class ="table table-light table-hover">
             <thead>
@@ -115,7 +115,7 @@ include 'config/controller.php';
             </tbody>
         </table>
         </div><br>
-        <a href="<?= $backLink ?>" class="btn btn-success">Back</a>
+        <a href="<?= $backLink ?>" class="btn btn-secondary">Back</a>
     </div>
        
 </body>

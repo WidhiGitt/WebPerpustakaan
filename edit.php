@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'config/controller.php';
 
 // Pastikan variabel $user didefinisikan sebelum digunakan
@@ -23,22 +24,29 @@ if (isset($_POST['update'])) {
     if (update_user($_POST) > 0) {
         echo "<script>
             alert('Berhasil mengupdate data');
-            document.location.href ='index.php';
+            document.location.href = 'dataUser.php';
             </script>";
         exit();
     } else {
         echo "<script>
             alert('Gagal mengupdate data');
-            document.location.href ='index.php';
+            document.location.href = 'dataUser.php';
             </script>";
     }
+}
+
+$backLink = '#';
+if ($_SESSION['level'] == 2) {
+    $backlink = 'DashboardPetugas2.php';
+}elseif($_SESSION['level'] == 1){
+    $backlink = 'DashboardAdmin2.php';
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Pengguna</title>
+    <title>E-library Deseven</title>
     <link rel="stylesheet" href="style/style2.css">
 </head>
 <body>
@@ -66,9 +74,9 @@ if (isset($_POST['update'])) {
             <div class="form-group">
                 <input type="text" class="form-control item" name="status" placeholder="Status" value="<?= $user['status']; ?>">
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-block create-account" name="update">Update</button>
-                <a href="index.php" class="btn btn-block create-account" name="back">Back</a>
+            <div class="form-group" style="display: flex; justify-content: center; gap: 10px;">
+                <input type="submit" name="update" value="Edit" onclick="window.location.href='<?= $backLink ?>'">
+                <button class="btn btn-success" onclick="window.location.href='<?= $backLink ?>'">Back</button>
             </div>
         </form>
     <?php else: ?>

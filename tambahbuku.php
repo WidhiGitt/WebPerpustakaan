@@ -1,21 +1,28 @@
 <?php
+session_start();
 include "config/controller.php";
 
     if (isset($_POST['tambah'])){
         if(create_buku($_POST) > 0){
             echo "<script>
             alert('Data Berhasil Ditambahkan');
-            document.location.href ='DashboardPetugas2.php';
+            document.location.href ='dataBuku.php';
             </script>";
         } else {
             echo "<script>
             alert('Data Gagal Ditambahkan');
-            document.location.href ='DashboardPetugas2.php';
+            document.location.href ='dataBuku.php';
             </script>";
         }
         }
 
     $kategori = select("SELECT * FROM kategori");
+
+// Redirect berdasarkan level
+$backLink = '#';
+if ($_SESSION['level'] == 2) {
+    $backLink = 'DashboardPetugas2.php';
+}
 
 ?>
 
@@ -24,7 +31,7 @@ include "config/controller.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>E-library Deseven</title>
     <link rel="stylesheet" href="style/style2.css">
 </head>
 <body>
@@ -55,8 +62,10 @@ include "config/controller.php";
             <div class="form-group">
                 <input type="text" class="form-control item" name="jumlah_buku" placeholder="Jumlah Buku" required>
             </div>
-            <label for="kategori">Kategori:</label>
-            <select name="id_kategori" id="kategori" class="form-select">
+            <div class="form-group">
+                <input type="text" class="form-control item" name="sinopsis" placeholder="Sinopsis">
+            </div>
+            <select name="id_kategori" id="kategori" class="form-select" required>
                 <option value="">-- Pilih Kategori --</option>
                 <?php foreach ($kategori as $ktgr): ?>
                     <option value="<?= $ktgr['id_kategori'] ?>">
@@ -65,9 +74,9 @@ include "config/controller.php";
                 <?php endforeach; ?>
             </select><br>
 
-            <div class="form-group">
-                <input type="submit" name="tambah" value="Add Book">
-                <a href="<?= $backLink ?>" class="btn btn-success">Back</a>
+            <div class="form-group" style="display: flex; justify-content: center; gap: 10px;">
+                <input type="submit" name="tambah" value="Add Book" onclick="window.location.href='<?= $backLink ?>'">
+                <button class="btn btn-success" onclick="window.location.href='<?= $backLink ?>'">Back</button>
             </div>
         </form>
     </div>

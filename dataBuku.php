@@ -5,7 +5,7 @@ include 'config/controller.php';
 // Proses hapus data
 if (isset($_GET['delete'])) {
     $id = intval($_GET['delete']);
-    if (delete_ktgr($id) > 0) {
+    if (delete_buku($id) > 0) {
         echo "<script>
             alert('Data Berhasil Dihapus');
             document.location.href ='dataBuku.php';
@@ -26,12 +26,12 @@ $data_buku = select("
 ");
 
 // Redirect berdasarkan level
-$backLink = '#';
-if ($_SESSION['level'] == 1) {
-    $backLink = 'DashboardAdmin2.php';
-} elseif ($_SESSION['level'] == 2) {
-    $backLink = 'DashboardPetugas2.php';
-}
+// $backLink = '#';
+// if ($_SESSION['level'] == 1) {
+//    $backLink = 'DashboardAdmin2.php';
+// } elseif ($_SESSION['level'] == 2) {
+//    $backLink = 'DashboardPetugas2.php';
+//}
 
 ?>
 
@@ -40,8 +40,10 @@ if ($_SESSION['level'] == 1) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Buku</title>
+    <title>E-library Deseven</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style/styleSiswa.css" />
     <style>
         body {
             background-color: #f5f5f5;
@@ -60,10 +62,33 @@ if ($_SESSION['level'] == 1) {
     </style>
 </head>
 <body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h2> <span class="font-normal">E-library</span> <span class="font-bold">DeSeven</span> </h2>
+        <ul>
+            <li><a href="DashboardPetugas2.php">Dashboard</a></li>
+            <li><a href="dataBuku.php">Kelola Buku</a></li>
+            <li><a href="dataKategori.php">Kelola Kategori</a></li>
+            <li><a href="dataPeminjaman.php">Kelola Peminjaman Buku</a></li>
+            <li><a href="AktivitasPetugas.php">Aktivitas</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="page-title" style="font-weight: bold;">Kelola Buku</h1>
+            <div class="search-bar">
+                <a href="formLogin.php" class="profile-icon">
+                    <i class="fas fa-circle-user"></i>
+                </a>
+            </div>
+        </div>
+
     <div class="container my-5">
-        <h1 class="text-center mb-4">Data Buku</h1>
         <div class="mb-3">
-            <a href="tambahbuku.php" class="btn btn-success">+ Tambah Buku</a>
+            <a href="tambahbuku.php" class="btn btn-success">+ Add Book</a>
         </div>
         <div class="form-group">
             <div class="table-responsive">
@@ -101,15 +126,14 @@ if ($_SESSION['level'] == 1) {
                                 <td class="text-center"><?= $buku['jumlah_buku']; ?></td>
                                 <td class="text-center"><?= $buku['nama']; ?></td>
                                 <td class="text-center">
-                                    <a href="editBuku.php?id=<?= $buku['id_buku']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="dataBuku.php?delete=<?= $buku['id_buku']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                                    <a href="editBuku.php?id=<?= $buku['id_buku']; ?>" class="btn btn-secondary btn-sm">Update</a>
+                                    <a href="dataBuku.php?delete=<?= $buku['id_buku']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?')">Delete</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
-            <a href="<?= $backLink ?>" class="btn btn-secondary mt-3">Kembali ke Dashboard</a>
         </div>
     </div>
 </body>

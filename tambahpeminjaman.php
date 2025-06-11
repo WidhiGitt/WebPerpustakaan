@@ -1,41 +1,45 @@
 <?php
+session_start();
 include "config/controller.php";
 
+// Cek apakah user sudah login
+if (!isset($_SESSION['id'])) {
+    header("Location: formLogin.php?redirect=tambahpeminjaman.php");
+    exit;
+}
+
+// Proses tambah peminjaman
 if (isset($_POST['tambah'])) {
-    $tgl_peminjaman = $_POST['tgl_peminjaman'];
-    $tgl_pengembalian = $_POST['tgl_pengembalian'];
-    $id = $_POST['id'];
-    $id_buku = $_POST['id_buku'];
-
-    if ($tgl_peminjaman && $tgl_pengembalian && $id && $id_buku) {
-        // Insert ke tabel peminjaman dulu
-        $insertPeminjaman = $db->query("INSERT INTO peminjaman (tgl_peminjaman, tgl_pengembalian, id) VALUES ('$tgl_peminjaman', '$tgl_pengembalian', $id)");
-
-        if ($insertPeminjaman) {
-            $id_peminjaman = $db->insert_id; // ambil id peminjaman yang baru
-
-            // Insert ke detail_peminjaman dengan status 'dipinjam'
-            $insertDetail = $db->query("INSERT INTO detail_peminjaman (id_peminjaman, id_buku, status) VALUES ($id_peminjaman, $id_buku, 'dipinjam')");
-
-            if ($insertDetail) {
-                echo "<script>alert('Peminjaman berhasil ditambahkan'); window.location.href='index.php';</script>";
-                exit;
-            } else {
-                echo "Error insert detail peminjaman: " . $db->error;
-            }
-        } else {
-            echo "Error insert peminjaman: " . $db->error;
-        }
+    if (create_pmnjmn($_POST) > 0) {
+        echo "<script>alert('Data Berhasil Ditambahkan');</script>";
     } else {
-        echo "Mohon isi semua data dengan benar.";
+        echo "<script>alert('Data Gagal Ditambahkan');</script>";
     }
 }
 
+// Ambil ID user dari session
+$id_user = $_SESSION['id'];
 
-// Ambil data user untuk dropdown
-$queryUsers = mysqli_query($db, "SELECT id, username FROM user WHERE level = 3");
+// Cek jika ada id_buku dari URL (GET)
+$id_buku_terpilih = $_GET['id_buku'] ?? '';
+$judul_buku = '';
 
-$backLink = "index.php";
+if ($id_buku_terpilih) {
+    $buku = select("SELECT * FROM buku WHERE id_buku = '$id_buku_terpilih'");
+    if ($buku) {
+        $judul_buku = $buku[0]['judul_buku'];
+    }
+}
+
+// Backlink sesuai level user
+$backLink = '#';
+if (isset($_SESSION['level'])) {
+    if ($_SESSION['level'] == 2) {
+        $backLink = 'DashboardPetugas2.php';
+    } elseif ($_SESSION['level'] == 3) {
+        $backLink = 'index.php';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -43,51 +47,47 @@ $backLink = "index.php";
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tambah Peminjaman Buku</title>
+    <title>E-library Deseven</title>
     <link rel="stylesheet" href="style/style2.css" />
 </head>
 <body>
     <div class="registration-form">
         <h2>Tambah Peminjaman Buku</h2>
         <form action="" method="POST">
+
+            <!-- ID Peminjam otomatis dari session -->
             <div class="form-group">
-                <label for="tgl_peminjaman">Tanggal Peminjaman:</label>
-                <input type="date" class="form-control item" id="tgl_peminjaman" name="tgl_peminjaman" required>
+                <label for="id">ID Peminjam</label><br><br>
+                <input type="text" class="form-control item" name="id" value="<?= $id_user ?>" readonly>
             </div>
 
             <div class="form-group">
-                <label for="tgl_pengembalian">Tanggal Pengembalian (rencana):</label>
-                <input type="date" class="form-control item" id="tgl_pengembalian" name="tgl_pengembalian" required>
+                <label for="tgl_peminjaman">Tanggal Peminjaman</label><br><br>
+                <input type="date" class="form-control item" name="tgl_peminjaman" required>
             </div>
 
             <div class="form-group">
-                <label for="id_peminjaman">ID Peminjaman:</label>
-                <input type="text" class="form-control item" id="id_peminjaman" name="id_peminjaman" required>
+                <label for="tgl_pengembalian">Tanggal Pengembalian</label><br><br>
+                <input type="date" class="form-control item" name="tgl_pengembalian" required>
             </div>
 
+            <!-- Menampilkan judul buku (readonly) jika ada -->
+            <?php if ($judul_buku): ?>
             <div class="form-group">
-                <label for="id_buku">ID Buku:</label>
-                <input type="text" class="form-control item" id="id_buku" name="id_buku" required>
+                <label for="judul_buku">Judul Buku</label><br><br>
+                <input type="text" class="form-control item" name="judul_buku" value="<?= $judul_buku ?>" readonly>
             </div>
+            <?php endif; ?>
 
-            <div class="form-group">
-                <label for="status">Status:</label>
-                <input type="text" class="form-control item" id="status" name="status" required>
-            </div>
+            <!-- Tetap kirimkan id_buku -->
+            <input type="hidden" name="id_buku" value="<?= $id_buku_terpilih ?>">
 
-            <div class="form-group">
-                <label for="id">Peminjam:</label>
-                <select class="form-control item" id="id" name="id" required>
-                    <option value="">-- Pilih Peminjam --</option>
-                    <?php while ($user = mysqli_fetch_assoc($queryUsers)) : ?>
-                        <option value="<?= $user['id']; ?>"><?= htmlspecialchars($user['username']); ?></option>
-                    <?php endwhile; ?>
-                </select>
-            </div>
+            <!-- Kolom tersembunyi untuk tgl_bukukembali -->
+            <input type="hidden" name="tgl_bukukembali">
 
-            <div class="form-group">
-                <input type="submit" name="tambah" value="Add Borrowing Book">
-                <a href="<?= $backLink ?>" class="btn btn-success">Back</a>
+            <div class="form-group" style="display: flex; justify-content: center; gap: 10px;">
+                <input type="submit" name="tambah" value="Add Borrowing Book" onclick="window.location.href='<?= $backLink ?>'">
+                <button class="btn btn-success" onclick="window.location.href='<?= $backLink ?>'">Back</button>
             </div>
         </form>
     </div>

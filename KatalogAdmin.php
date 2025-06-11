@@ -23,14 +23,6 @@ $data_buku = select("
     JOIN kategori ON buku.id_kategori = kategori.id_kategori
 ");
 
-// Redirect berdasarkan level
-$backLink = '#';
-if ($_SESSION['level'] == 1) {
-    $backLink = 'DashboardAdmin2.php';
-} elseif ($_SESSION['level'] == 2) {
-    $backLink = 'DashboardPetugas2.php';
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -38,18 +30,20 @@ if ($_SESSION['level'] == 1) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Buku</title>
+    <title>E-library Deseven</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style/styleSiswa.css">
     <style>
         body {
             background-color: #f5f5f5;
         }
         .form-group {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-        }
+        background-color: rgb(255, 255, 255);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow:rgb(155, 155, 155) 0px 10px 20px 0px;
+    }
         img.cover-img {
             max-width: 60px;
             height: auto;
@@ -58,13 +52,38 @@ if ($_SESSION['level'] == 1) {
     </style>
 </head>
 <body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h2> <span class="font-normal">E-library</span>
+            <span class="font-bold">DeSeven</span>
+        </h2>
+        <ul>
+            <li><a href="DashboardAdmin2.php">Dashboard</a></li>
+            <li><a href="KatalogAdmin.php">Data Buku</a></li>
+            <li><a href="KategoriAdmin.php">Data Kategori</a></li>
+            <li><a href="PeminjamanAdmin.php">Data Peminjaman</a></li>
+            <li><a href="dataAktivitas.php">Aktivitas</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="page-title" style="font-weight: bold;">Data Buku</h1>
+            <div class="search-bar">
+                <a href="formLogin.php" class="profile-icon">
+                    <i class="fas fa-circle-user"></i>
+                </a>
+            </div>
+        </div>
+
     <div class="container my-5">
-        <h1 class="text-center mb-4">Data Buku</h1>
         <div class="mb-3">
         </div>
         <div class="form-group">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle">
+                <table class="table table-light table-hover">
                     <thead class="table-light text-center">
                         <tr>
                             <th>ID</th>
@@ -101,7 +120,6 @@ if ($_SESSION['level'] == 1) {
                     </tbody>
                 </table>
             </div>
-            <a href="<?= $backLink ?>" class="btn btn-secondary mt-3">Kembali ke Dashboard</a>
         </div>
     </div>
 </body>

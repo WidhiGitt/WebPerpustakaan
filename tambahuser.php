@@ -1,18 +1,24 @@
 <?php
+session_start();
     include "config/controller.php";
     if (isset($_POST['tambah'])){
         if(create_user($_POST) > 0){
             echo "<script>
             alert('Data Berhasil Ditambahkan');
-            document.location.href ='index.php';
             </script>";
         } else {
             echo "<script>
             alert('Data Gagal Ditambahkan');
-            document.location.href ='index.php';
             </script>";
         }
         }
+
+$backLink = '#';
+if ($_SESSION['level'] == 2) {
+    $backLink = 'DashboardPetugas2.php';
+}elseif($_SESSION['level'] == 1){
+    $backLink = 'DashboardAdmin2.php';
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +26,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>E-library Deseven</title>
     <link rel="stylesheet" href="style/style2.css">
 </head>
 <body>
@@ -42,11 +48,19 @@
             <div class="form-group">
                 <input type="text" class="form-control item" name="status" placeholder="Status" required>
             </div>
+            <label style="display: flex; justify-content: center;">Data Peminjam</label>
             <div class="form-group">
-                <input type="submit" name="tambah" value="Add User">
-            </div><br>
+                <input type="text" class="form-control item" name="nama_lengkap" placeholder="Nama Lengkap" required>
+            </div>
             <div class="form-group">
-                <a href="index.php" class="btn btn-block create-account" name="back">Back</a>
+                <input type="text" class="form-control item" name="telepon" placeholder="Telepon" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" name="alamat" placeholder="Alamat" required>
+            </div>
+             <div class="form-group" style="display: flex; justify-content: center; gap: 10px;">
+                <input type="submit" name="tambah" value="Add User" onclick="window.location.href='<?= $backLink ?>'">
+                <button class="btn btn-success" onclick="window.location.href='<?= $backLink ?>'">Back</button>
             </div>
         </form>
     </div>

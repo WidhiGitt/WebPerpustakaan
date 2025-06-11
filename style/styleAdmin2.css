@@ -12,23 +12,16 @@ body {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.title {
-    display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  font-size: 1.5rem;
-}
-
 .font-normal {
-  font-family: 'Arial', sans-serif; /* ganti dengan font biasa */
-  font-weight: normal;
-  color: white;
+    font-family: 'Arial', sans-serif;
+    font-weight: normal;
+    color: white;
 }
 
 .font-bold {
-  font-family: 'Arial', serif; /* ganti dengan font unik */
-  font-weight: bold;
-  color: white;
+    font-family: 'Arial', serif;
+    font-weight: bold;
+    color: white;
 }
 
 .sidebar ul {
@@ -67,7 +60,7 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     margin-bottom: 20px;
-    color:#5f8b4c;
+    color: #5f8b4c;
 }
 
 .search-bar {
@@ -76,21 +69,20 @@ body {
     gap: 10px;
 }
 
-.search-bar input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 100px;
+.profile-icon {
+    font-size: 40px; 
+    color: #5f8b4c;
+    text-decoration: none;
+    border: none;
+    background: none;
+    padding: 0;
 }
 
-.profile-icon {
-    background: #ccc;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.profile-icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
 }
+
 .stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -101,37 +93,86 @@ body {
 .card {
     background: white;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
 }
 
 .management {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    display: flex;
+    gap: 20px; /* jarak antar box */
+    flex-wrap: wrap; /* supaya responsif di layar kecil */
 }
-
 .manage-box {
-    background: white;
+    flex: 1; /* supaya tiap box bisa memenuhi space yang tersedia */
+    min-width: 250px; /* minimal lebar box */
+    background-color: #fff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
     text-align: center;
 }
 
+.manage-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.manage-icon {
+    font-size: 3rem;
+    color: #5f8b4c;
+    margin-bottom: 10px;
+    background-color: #4cfc0042;
+    padding: 20px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover .icon {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+
+.icon {
+    font-size: 2.5rem;
+    color: #5f8b4c;
+    background: #4cfc0042;
+    padding: 15px;
+    border-radius: 50%;
+    transition: transform 0.3s ease; /* ← Tambahan ini */
+}
+
+.manage-box:hover .manage-icon {
+    transform: scale(1.1);
+}
+
 .manage-box button {
-    margin-top: 10px;
-    padding: 10px;
-    background: #3b82f6;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #5f8b4c;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 .manage-box button:hover {
-    background: #2563eb;
+    background: #697e60;
+}
+
+.manage-box button:active {
+    background: #51863a;
 }

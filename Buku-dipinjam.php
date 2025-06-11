@@ -22,7 +22,6 @@ $query = "SELECT
             peminjaman.id = $id AND detail_peminjaman.status = 'dipinjam'";
 
 $result = mysqli_query($db, $query);
-
 ?>
 
 <!DOCTYPE html>
@@ -30,8 +29,9 @@ $result = mysqli_query($db, $query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buku Dipinjam</title>
+    <title>E-library Deseven</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style/styleSiswa.css">
     <style>
     body {
@@ -68,15 +68,18 @@ $result = mysqli_query($db, $query);
             <li><a href="KatalogPengguna.php">Katalog</a></li>
             <li><a href="Buku-dipinjam.php">Buku yang Dipinjam</a></li>
             <li><a href="PanduanPengguna.php">Panduan</a></li>
+            <li><a href="AktivitasPengguna.php">Aktivitas Saya</a></li>
         </ul>
     </nav>
 
     <div class="content">
         <!-- Header -->
         <div class="header">
-            <h1 class="page-title" style="font-weight: bold;">Panduan</h1>
+            <h1 class="page-title" style="font-weight: bold;">Peminjaman</h1>
             <div class="search-bar">
-                <a class="profile-icon" href="formLogin.php">👤</a>
+                <a href="formLogin.php" class="profile-icon">
+                    <i class="fas fa-circle-user"></i>
+                </a>
             </div>
         </div>
 

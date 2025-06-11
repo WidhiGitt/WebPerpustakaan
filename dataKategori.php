@@ -8,23 +8,16 @@ if (isset($_GET['delete'])) {
     if (delete_ktgr($id) > 0) {
         echo "<script>
             alert('Data Berhasil Dihapus');
-            document.location.href ='DashboardAdmin.php';
+            document.location.href ='dataKategori.php';
             </script>";
     } else {
         echo "<script>
             alert('Gagal Menghapus Data');
-            document.location.href ='DashboardAdmin.php';
+            document.location.href ='dataKategori.php';
             </script>";
     }
     exit();
 }
-
-$backLink = '#'; // Default fallback
-    if ($_SESSION['level'] == 1) {
-        $backLink = 'DashboardAdmin2.php';
-    } elseif ($_SESSION['level'] == 2) {
-        $backLink = 'DashboardPetugas2.php';
-    }
 
 //SQL menampilkan
 $data_ktgr = select("SELECT * FROM kategori");
@@ -35,11 +28,13 @@ $data_ktgr = select("SELECT * FROM kategori");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>E-library Deseven</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-     <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style/styleSiswa.css" />
+    <style>
     body {
-        background-color: #e0e0e0;
+        background-color: #f5f5f5;
     }
     .form-group {
         background-color: rgb(255, 255, 255);
@@ -50,10 +45,32 @@ $data_ktgr = select("SELECT * FROM kategori");
 </style>
 </head>
 <body>
+
+<!-- Sidebar -->
+    <nav class="sidebar">
+        <h2> <span class="font-normal">E-library</span> <span class="font-bold">DeSeven</span> </h2>
+        <ul>
+            <li><a href="DashboardPetugas2.php">Dashboard</a></li>
+            <li><a href="dataBuku.php">Kelola Buku</a></li>
+            <li><a href="dataKategori.php">Kelola Kategori</a></li>
+            <li><a href="dataPeminjaman.php">Kelola Peminjaman Buku</a></li>
+            <li><a href="AktivitasPetugas.php">Aktivitas</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="page-title" style="font-weight: bold;">Kelola Kategori</h1>
+            <div class="search-bar">
+                <a href="formLogin.php" class="profile-icon">
+                    <i class="fas fa-circle-user"></i>
+                </a>
+            </div>
+        </div>
+
     <div class ="container">
-        <h1 class="text-center mt-5">DATA KATEGORI</h1>
-        <br><br>
-        <a href="tambahkategori.php" class="btn btn-success">Add Category</a><br><br>
+        <a href="tambahkategori.php" class="btn btn-success">+ Add Category</a><br><br>
         <div class="form-group">
         <table class ="table table-light table-hover">
             <thead>
@@ -77,7 +94,6 @@ $data_ktgr = select("SELECT * FROM kategori");
                  <?php endforeach; ?>
             </tbody>
         </table>
-         <a href="<?= $backLink ?>" class="btn btn-success">Back</a>
     </div>
        
 </body>

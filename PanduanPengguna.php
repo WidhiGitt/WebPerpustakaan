@@ -26,9 +26,10 @@ $resultSemua = $db->query($querySemua);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Siswa</title>
+    <title>E-library Deseven</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style/styleSiswa.css">
     <style>
     .container {
@@ -39,12 +40,12 @@ $resultSemua = $db->query($querySemua);
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    h1, h2 {
+    h1 {
       text-align: center;
-      color: #2c5f2d;
+      color: #5f8b4c;
     }
     h3 {
-      color: #3c8d2f;
+      color: #5f8b4c;
       margin-top: 30px;
     }
     p {
@@ -55,6 +56,7 @@ $resultSemua = $db->query($querySemua);
       padding-left: 20px;
     }
     .footer {
+      background-color: #ffffff;
       text-align: center;
       margin-top: 40px;
       font-size: 0.9rem;
@@ -73,6 +75,7 @@ $resultSemua = $db->query($querySemua);
             <li><a href="KatalogPengguna.php">Katalog</a></li>
             <li><a href="Buku-dipinjam.php">Buku yang Dipinjam</a></li>
             <li><a href="PanduanPengguna.php">Panduan</a></li>
+            <li><a href="AktivitasPengguna.php">Aktivitas Saya</a></li>
         </ul>
     </nav>
 
@@ -81,7 +84,9 @@ $resultSemua = $db->query($querySemua);
         <div class="header">
             <h1 class="page-title" style="font-weight: bold;">Panduan</h1>
             <div class="search-bar">
-                <a class="profile-icon" href="formLogin.php">👤</a>
+                <a href="formLogin.php" class="profile-icon">
+                    <i class="fas fa-circle-user"></i>
+                </a>
             </div>
         </div>
 
@@ -89,7 +94,6 @@ $resultSemua = $db->query($querySemua);
     <div class="content">
          <div class="container">
     <h1>Panduan Pengguna</h1>
-    <h2>Perpustakaan Online</h2>
 
     <h3>📚 1. Registrasi & Login</h3>
     <p>- Registrasi akun dilakukan oleh petugas atau admin perpustakaan.</p>

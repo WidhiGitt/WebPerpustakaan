@@ -99,10 +99,21 @@ input[type="password"]::placeholder {
 
 .forgot {
     text-decoration: underline;
-    color: #345725
+    color: #133306
 }
 
 a {
     text-decoration: underline;
-    color: #345725
+    color: #133306
+}
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 0px;
+}
+
+.input-row input {
+    width: 100%;
+    flex: 1;
 }
